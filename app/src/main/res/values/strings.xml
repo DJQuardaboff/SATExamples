@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">SAT Examples</string>
+    <string name="action_settings">Settings</string>
+    <string name="math_title">Math Sample Questions</string>
+    <string name="intro">Introduction</string>
+    <string name="math_intro.0">The directions and question numbers below are representative of what students will encounter on test day. Some math sections allow the use of a calculator, while others do not, as indicated in the directions.</string>
+    <string name="math_intro.1">Turn to Section 3 of your answer sheet to answer the questions in this section.\n
+        \nFor questions 1-15, solve each problem, choose the best answer from the choices provided, and fill in the corresponding circle on your answer sheet. For questions 16-20, solve the problem and enter your answer in the grid on the answer sheet. Please refer to the directions before question 16 on how to enter your answers in the grid. You may use any available space in your test booklet for scratch work.\n
+        \n
+        \t1. The use of a calculator [is permitted]/[is not permitted].\n
+        \t2. All variables and expressions used represent real numbers unless otherwise indicated.\n
+        \t3. Figures provided in this test are drawn to scale unless otherwise indicated.\n
+        \t4. All figures lie in a plane unless otherwise indicated.\n
+        \t5. Unless otherwise indicated, the domain of a given function f is the set of all real numbers x for which f of x is a real number.</string>
+    <string name="math_intro.2">Introduction</string>
+    <string name="math_intro.3">Introduction</string>
+    <string name="math_intro.4">Introduction</string>
+    <string name="calc_allowed_start">Calculator: Permitted</string>
+    <string name="calc_not_allowed_start">Calculator: Not Permitted</string>
+    <string name="reading_title">Reading Sample Questions</string>
+    <string name="writing_title">Writing and Language Sample Questions</string>
+    <string name="essay_title">Essay Sample Questions</string>
+</resources>
