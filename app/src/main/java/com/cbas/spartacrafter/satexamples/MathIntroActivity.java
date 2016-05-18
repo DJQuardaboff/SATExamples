@@ -32,13 +32,15 @@ public class MathIntroActivity extends AppCompatActivity {
     public void startMathCalcTest(View v) {
         Intent calcTest = new Intent(this, MathTestActivity.class);
         calcTest.putExtra("isCalc", true);
+        calcTest.putExtra("questionNum", 1);
         startActivity(calcTest);
     }
 
     public void startMathNoCalcTest(View v) {
-        Intent calcTest = new Intent(this, MathTestActivity.class);
-        calcTest.putExtra("isCalc", false);
-        startActivity(calcTest);
+        Intent noCalcTest = new Intent(this, MathTestActivity.class);
+        noCalcTest.putExtra("isCalc", false);
+        noCalcTest.putExtra("questionNum", 1);
+        startActivity(noCalcTest);
     }
 
     /*

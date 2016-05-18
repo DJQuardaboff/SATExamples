@@ -18,32 +18,36 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 
-public class MathTestActivity extends AppCompatActivity{
-    private RadioGroup answerOptions;
-    private LinearLayout questionView;
+public class MathTestActivity extends AppCompatActivity {
+    private static LinearLayout questionView;
+    private static RadioGroup answerOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.math_test);
-        System.out.println("Intent Bundle: " + getIntent().getBooleanExtra("isCalc", false));
-        answerOptions = (RadioGroup) findViewById(R.id.answer_options);
         questionView = (LinearLayout) findViewById(R.id.question_view);
-        new Test().execute(TestSelectActivity.URL + TestSelectActivity.MATH_CALC_TEST);
+        answerOptions = (RadioGroup) findViewById(R.id.answer_options);
+        answerOptions.setVisibility(RadioGroup.INVISIBLE);
+        boolean isCalc = getIntent().getBooleanExtra("isCalc", true);
+        int questionNum = getIntent().getIntExtra("questionNum", 1);
+        new Test().execute(TestSelectActivity.URL + ((isCalc)?(TestSelectActivity.MATH_CALC_TEST):(TestSelectActivity.MATH_NO_CALC_TEST)) + questionNum);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        questionView = null;
+        answerOptions = null;
     }
 
     private class Test extends AsyncTask<String, Void, Document> {
-        ProgressDialog progress;
+        private ProgressDialog progress;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progress = new ProgressDialog(getApplicationContext());
+            progress = new ProgressDialog(MathTestActivity.this);
             progress.setTitle("Getting Stuff From The Webs\u2122");
             progress.setMessage("Loading...");
             progress.setIndeterminate(false);
@@ -65,7 +69,9 @@ public class MathTestActivity extends AppCompatActivity{
             Element element = result.getElementsByClass("field-items").first();
             String temp = element.getAllElements().get(2).text();
             temp += "";
+            answerOptions.setVisibility(RadioGroup.VISIBLE);
             progress.dismiss();
+            progress = null;
         }
     }
 }

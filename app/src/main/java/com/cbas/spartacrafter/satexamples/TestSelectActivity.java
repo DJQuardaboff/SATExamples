@@ -1,5 +1,6 @@
 package com.cbas.spartacrafter.satexamples;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,11 +14,11 @@ public class TestSelectActivity extends AppCompatActivity {
     public static final String READING_INTRO = "reading/";
     public static final String WRITING_LANGUAGE_INTRO = "writing-language/";
     public static final String ESSAY_INTRO = "essay/";
-    public static final String MATH_CALC_TEST = "math/calculator-permitted/1";
-    public static final String MATH_NO_CALC_TEST = "math/calculator-not-permitted/1";
-    public static final String READING_TEST = "reading/1";
-    public static final String WRITING_LANGUAGE_TEST = "writing-language/1";
-    public static final String ESSAY_TEST = "essay/1";
+    public static final String MATH_CALC_TEST = "math/calculator-permitted/";
+    public static final String MATH_NO_CALC_TEST = "math/calculator-not-permitted/";
+    public static final String READING_TEST = "reading/";
+    public static final String WRITING_LANGUAGE_TEST = "writing-language/";
+    public static final String ESSAY_TEST = "essay/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

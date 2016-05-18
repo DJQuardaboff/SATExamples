@@ -8,7 +8,6 @@ import android.view.View;
  */
 public class WritingLanguageIntroActivity extends AppCompatActivity {
 
-
     public void startWritingLanguageTest(View v) {
 
     }
