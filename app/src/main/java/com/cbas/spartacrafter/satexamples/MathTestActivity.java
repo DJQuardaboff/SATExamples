@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,25 +24,16 @@ import java.io.IOException;
 public class MathTestActivity extends AppCompatActivity {
     private static LinearLayout questionView;
     private static RadioGroup answerOptions;
-    private static int answerAId;
-    private static int answerBId;
-    private static int answerCId;
-    private static int answerDId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.math_test);
         answerOptions = (RadioGroup) findViewById(R.id.answer_options);
-        answerOptions.setVisibility(RadioGroup.INVISIBLE);
         questionView = (LinearLayout) findViewById(R.id.question_view);
-        answerAId = answerOptions.getChildAt(0).getId();
-        answerBId = answerOptions.getChildAt(1).getId();
-        answerCId = answerOptions.getChildAt(2).getId();
-        answerDId = answerOptions.getChildAt(3).getId();
         boolean isCalc = getIntent().getBooleanExtra("isCalc", true);
         int questionNum = getIntent().getIntExtra("questionNum", 1);
-        new Test().execute(TestSelectActivity.URL + ((isCalc)?(TestSelectActivity.MATH_CALC_TEST):(TestSelectActivity.MATH_NO_CALC_TEST)) + questionNum);
+        new Test().execute(TestSelectActivity.BASE_URL + TestSelectActivity.TEST_SELECT + ((isCalc)?(TestSelectActivity.CALC):(TestSelectActivity.NO_CALC)) + questionNum);
     }
 
     @Override
@@ -79,21 +71,23 @@ public class MathTestActivity extends AppCompatActivity {
             Elements elements = result.select(".answer-body");
             for(int i = 0; i < elements.size(); i++) {
                 Element e = elements.get(i).firstElementSibling();
-                String text;
                 if(!e.select(".Wirisformula").isEmpty()) {
-                    //((RadioButton) answerOptions.getChildAt(i)).setText("\"" + e.child(0).child(0).attr("data-mathml") + " with MathML" + "\"");
-                    ((RadioButton) answerOptions.getChildAt(i)).setText("\"" + e.child(0).child(0).attr("src") + " as Image" + "\"");
+                    ImageView v = new ImageView(MathTestActivity.this);
+                    v.setVisibility(View.VISIBLE);
+                    //v.set(e.child(0).child(0).attr("src"));
                 } else {
-                    ((RadioButton) answerOptions.getChildAt(i)).setText("\"" + e.text() + " as Text" + "\"");
+                    RadioButton b = new RadioButton(MathTestActivity.this);
+                    b.setText(e.text());
                 }
             }
-            answerOptions.setVisibility(RadioGroup.VISIBLE);
+            answerOptions.setVisibility(View.VISIBLE);
             progress.dismiss();
             progress = null;
         }
     }
 
     public void onSelectAnswerA(View v) {
+
     }
 
     public void onSelectAnswerB(View v) {

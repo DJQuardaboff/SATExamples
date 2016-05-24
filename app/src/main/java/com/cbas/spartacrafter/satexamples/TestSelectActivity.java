@@ -9,16 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class TestSelectActivity extends AppCompatActivity {
-    public static final String URL = "https://collegereadiness.collegeboard.org/sample-questions/";
+    public static final String BASE_URL = "https://collegereadiness.collegeboard.org/";
+    public static final String TEST_SELECT = "sample-questions/";
     public static final String MATH_INTRO = "math/";
     public static final String READING_INTRO = "reading/";
     public static final String WRITING_LANGUAGE_INTRO = "writing-language/";
     public static final String ESSAY_INTRO = "essay/";
-    public static final String MATH_CALC_TEST = "math/calculator-permitted/";
-    public static final String MATH_NO_CALC_TEST = "math/calculator-not-permitted/";
-    public static final String READING_TEST = "reading/";
-    public static final String WRITING_LANGUAGE_TEST = "writing-language/";
-    public static final String ESSAY_TEST = "essay/";
+    public static final String CALC = "math/calculator-permitted/";
+    public static final String NO_CALC = "math/calculator-not-permitted/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
