@@ -24,6 +24,7 @@ import java.io.IOException;
 public class MathTestActivity extends AppCompatActivity {
     private static LinearLayout questionView;
     private static RadioGroup answerOptions;
+    private static int correctAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,8 @@ public class MathTestActivity extends AppCompatActivity {
         answerOptions = (RadioGroup) findViewById(R.id.answer_options);
         questionView = (LinearLayout) findViewById(R.id.question_view);
         boolean isCalc = getIntent().getBooleanExtra("isCalc", true);
-        int questionNum = getIntent().getIntExtra("questionNum", 1);
-        new Test().execute(TestSelectActivity.BASE_URL + TestSelectActivity.TEST_SELECT + ((isCalc)?(TestSelectActivity.CALC):(TestSelectActivity.NO_CALC)) + questionNum);
+        int questionNum = getIntent().getIntExtra("questionNum", 2);
+        new Test().execute(TestSelectActivity.TEST_SELECT + ((isCalc)?(TestSelectActivity.CALC):(TestSelectActivity.NO_CALC)) + questionNum);
     }
 
     @Override
@@ -60,6 +61,7 @@ public class MathTestActivity extends AppCompatActivity {
         protected Document doInBackground(String... params) {
             try {
                 return Jsoup.connect(params[0]).get();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -71,13 +73,11 @@ public class MathTestActivity extends AppCompatActivity {
             Elements elements = result.select(".answer-body");
             for(int i = 0; i < elements.size(); i++) {
                 Element e = elements.get(i).firstElementSibling();
+                RadioButton b = (RadioButton) answerOptions.getChildAt(i);
                 if(!e.select(".Wirisformula").isEmpty()) {
-                    ImageView v = new ImageView(MathTestActivity.this);
-                    v.setVisibility(View.VISIBLE);
-                    //v.set(e.child(0).child(0).attr("src"));
+                    b.setText(elements.text());
                 } else {
-                    RadioButton b = new RadioButton(MathTestActivity.this);
-                    b.setText(e.text());
+                    b.setText(elements.text());
                 }
             }
             answerOptions.setVisibility(View.VISIBLE);
@@ -86,19 +86,27 @@ public class MathTestActivity extends AppCompatActivity {
         }
     }
 
-    public void onSelectAnswerA(View v) {
+    public void onClickNext(View v) {
 
     }
 
-    public void onSelectAnswerB(View v) {
+    public void onClickPrev(View v) {
 
     }
 
-    public void onSelectAnswerC(View v) {
+    public void onClickAnswerA(View v) {
 
     }
 
-    public void onSelectAnswerD(View v) {
+    public void onClickAnswerB(View v) {
+
+    }
+
+    public void onClickAnswerC(View v) {
+
+    }
+
+    public void onClickAnswerD(View v) {
 
     }
 }

@@ -27,4 +27,6 @@
     <string name="reading_title">Reading Sample Questions</string>
     <string name="writing_title">Writing and Language Sample Questions</string>
     <string name="essay_title">Essay Sample Questions</string>
+    <string name="next">Next &gt;</string>
+    <string name="prev">&lt; Prev</string>
 </resources>

@@ -10,7 +10,7 @@ import android.view.View;
 
 public class TestSelectActivity extends AppCompatActivity {
     public static final String BASE_URL = "https://collegereadiness.collegeboard.org/";
-    public static final String TEST_SELECT = "sample-questions/";
+    public static final String TEST_SELECT = "https://collegereadiness.collegeboard.org/sample-questions/";
     public static final String MATH_INTRO = "math/";
     public static final String READING_INTRO = "reading/";
     public static final String WRITING_LANGUAGE_INTRO = "writing-language/";
