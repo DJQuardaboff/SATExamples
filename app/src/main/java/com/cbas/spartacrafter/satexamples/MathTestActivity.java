@@ -9,11 +9,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.webkit.WebView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.SimpleHtmlSerializer;
+import org.htmlcleaner.TagNode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,7 +25,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 public class MathTestActivity extends AppCompatActivity {
-    private static LinearLayout questionView;
+    private static WebView questionView;
     private static RadioGroup answerOptions;
     private static int correctAnswer;
 
@@ -31,9 +34,9 @@ public class MathTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.math_test);
         answerOptions = (RadioGroup) findViewById(R.id.answer_options);
-        questionView = (LinearLayout) findViewById(R.id.question_view);
+        questionView = (WebView) findViewById(R.id.question_view);
         boolean isCalc = getIntent().getBooleanExtra("isCalc", true);
-        int questionNum = getIntent().getIntExtra("questionNum", 2);
+        int questionNum = getIntent().getIntExtra("questionNum", 1);
         new Test().execute(TestSelectActivity.TEST_SELECT + ((isCalc)?(TestSelectActivity.CALC):(TestSelectActivity.NO_CALC)) + questionNum);
     }
 
@@ -70,14 +73,21 @@ public class MathTestActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Document result) {
-            Elements elements = result.select(".answer-body");
-            for(int i = 0; i < elements.size(); i++) {
-                Element e = elements.get(i).firstElementSibling();
+            Elements temp = result.select("div.field-item even");
+            final String newPage = temp.html();
+            HtmlCleaner cleaner = new HtmlCleaner();
+            CleanerProperties props = cleaner.getProperties();
+            TagNode tagNode = new HtmlCleaner(props).clean(newPage);
+            SimpleHtmlSerializer htmlSerializer = new SimpleHtmlSerializer(props);
+            questionView.loadDataWithBaseURL(null,htmlSerializer.getAsString(tagNode), "text/html", "charset=UTF-8",null);
+            temp = result.select(".answer-body");
+            for(int i = 0; i < temp.size(); i++) {
+                Element answer = temp.get(i);
                 RadioButton b = (RadioButton) answerOptions.getChildAt(i);
-                if(!e.select(".Wirisformula").isEmpty()) {
-                    b.setText(elements.text());
+                if(!answer.select(".Wirisformula").isEmpty()) {
+                    //unfinished
                 } else {
-                    b.setText(elements.text());
+                    b.setText(answer.text());
                 }
             }
             answerOptions.setVisibility(View.VISIBLE);
