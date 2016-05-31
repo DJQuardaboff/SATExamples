@@ -3,23 +3,10 @@
  */
 package com.cbas.spartacrafter.satexamples;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
-import java.io.IOException;
 
 public class MathIntroActivity extends AppCompatActivity {
 
@@ -32,14 +19,14 @@ public class MathIntroActivity extends AppCompatActivity {
     public void startMathCalcTest(View v) {
         Intent calcTest = new Intent(this, MathTestActivity.class);
         calcTest.putExtra("isCalc", true);
-        calcTest.putExtra("questionNum", 2);
+        calcTest.putExtra("questionNum", 1);
         startActivity(calcTest);
     }
 
     public void startMathNoCalcTest(View v) {
         Intent noCalcTest = new Intent(this, MathTestActivity.class);
         noCalcTest.putExtra("isCalc", false);
-        noCalcTest.putExtra("questionNum", 2);
+        noCalcTest.putExtra("questionNum", 1);
         startActivity(noCalcTest);
     }
 
