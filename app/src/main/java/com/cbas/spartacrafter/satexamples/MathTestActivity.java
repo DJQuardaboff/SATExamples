@@ -80,19 +80,27 @@ public class MathTestActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Document result) {
-            questionView.loadDataWithBaseURL(null, new SimpleHtmlSerializer(new HtmlCleaner().getProperties()).getAsString(new HtmlCleaner(new HtmlCleaner().getProperties()).clean(result.select("div.col-sm-7").html())), "text/html", "charset=UTF-8", null);
+            questionView.loadDataWithBaseURL(TestSelectActivity.TEST_SELECT + ((isCalc) ? (TestSelectActivity.CALC) : (TestSelectActivity.NO_CALC)) + questionNum, new SimpleHtmlSerializer(new HtmlCleaner().getProperties()).getAsString(new HtmlCleaner(new HtmlCleaner().getProperties()).clean(result.select("div.col-sm-7").html())), "text/html", "utf-8", null);
             Elements temp = result.select(".field-name-field-answers").first().child(0).children();
             for(int i = 0; i < temp.size(); i++) {
                 Element answer = temp.get(i);
                 RadioButton b = (RadioButton) answerOptions.getChildAt(i);
                 if(!answer.select(".Wirisformula").isEmpty()) {
-                    //unfinished
+                    b.setText("Answer " + ((i == 0)?("A"):((i == 1)?("B"):((i == 2)?("C"):("D")))));
                 } else {
                     b.setText(answer.child(0).child(0).child(0).text());
-
                 }
-                if(answer.child(0).child(0).child(1).text().equalsIgnoreCase("No")) {
-                    correctAnswer = i;
+                if(answer.child(0).child(0).children().size() != 1) {
+                    System.out.println(answer.child(0).child(0).child(1).child(0).text());
+                    if (answer.child(0).child(0).child(1).text().contains("Yes")) {
+                        correctAnswer = i;
+                    }
+                } else {
+                    b.setText("Answer " + ((i == 0)?("A"):((i == 1)?("B"):((i == 2)?("C"):("D")))));
+                    System.out.println(answer.child(0).child(0).child(0).child(0).text());
+                    if (answer.child(0).child(0).child(0).child(0).text().contains("Yes")) {
+                        correctAnswer = i;
+                    }
                 }
             }
             answerOptions.setVisibility(View.VISIBLE);
@@ -102,6 +110,7 @@ public class MathTestActivity extends AppCompatActivity {
     }
 
     public void onClickNext(View v) {
+        answerOptions.clearCheck();
         questionNum++;
         getTest();
         ((RadioButton) answerOptions.getChildAt(0)).setTextColor(Color.BLACK);
@@ -111,6 +120,7 @@ public class MathTestActivity extends AppCompatActivity {
     }
 
     public void onClickPrev(View v) {
+        answerOptions.clearCheck();
         questionNum--;
         getTest();
         ((RadioButton) answerOptions.getChildAt(0)).setTextColor(Color.BLACK);
